@@ -13,17 +13,17 @@ app.use(cors());
 const PORT = process.env.PORT;
 
 const __dirname = path.resolve();
-
+app.use("/api/books", bookRoute);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("/*", (_, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
-
+ connectDB();
 app.listen(PORT, () => {
-  connectDB();
+ 
   console.log(`Server is running on port ${PORT}`);
 });
 
-app.use("/api/books", bookRoute);
+
